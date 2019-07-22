@@ -22,27 +22,20 @@ echo "<h3>" . "Функция подсчета суммы всех элемен�
 function summaElementsArray(array $array): float
 {
     $resultSumma = 0;
-    $countArray = 0;
-    $element = 0;
-    $iterator = 0;
 
-    $countArray = count($array);
-
-    if ($countArray !== 0) {
-        while ($iterator < $countArray) {
-            $element = $array[$iterator];
-            if (is_array($element) === false) {
-                if (is_numeric($element) === true) {
-                    $resultSumma = $resultSumma + $element;
-                }
-            } else {
-                $resultSumma = $resultSumma + summaElementsArray($element);
+    if (count($array) !== 0) {
+        foreach ($array as $elementArray) {
+            if (is_array($elementArray)) {
+                $resultSumma += summaElementsArray($elementArray);
             }
-            $iterator++;
+            if (is_numeric($elementArray)) {
+                $resultSumma += $elementArray;
+            }
         }
     }
     return $resultSumma;
 }
+
 
 $summaValuesArray = summaElementsArray($valuesArray);
 
